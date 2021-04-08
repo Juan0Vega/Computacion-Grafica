@@ -1,4 +1,5 @@
 import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js';
 
 var renderizador, camara, escena;
 
@@ -20,8 +21,11 @@ function render() {
 
 function crearCamara() {
     camara = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    var controls = new OrbitControls(camara, renderizador.domElement);
     camara.name = "camara";
     camara.position.set(0, 10, 100);
+    controls.update();
+
 }
 
 function crearCubo() {
@@ -60,10 +64,10 @@ let esfera = () => {
     const sphere4 = new THREE.Mesh(geometry4, material2);
     sphere2.position.y = 20
     sphere3.position.y = 22
-    sphere3.position.z = 10
+    sphere3.position.z = 7
     sphere3.position.x = -1
     sphere4.position.y = 20
-    sphere4.position.z = 10
+    sphere4.position.z = 7
     sphere4.position.x = 2
     escena.add(sphere, sphere2, sphere3, sphere4);
 }
@@ -82,12 +86,12 @@ let cilindro = () => {
 
 function init() {
     crearEscena();
+    crearRenderizador();
     crearCamara();
     //crearCubo();
     crearDona();
     esfera();
     cilindro();
-    crearRenderizador();
     render();
 }
 init();
